@@ -7,42 +7,67 @@
 // in the app's build.gradle
 
 buildscript {
+    ext {
+        agp_version = '8.5.1'
+    }
     repositories {
+        maven { setUrl("https://maven.aliyun.com/repository/central") }
+        maven { setUrl("https://maven.aliyun.com/repository/jcenter") }
+        maven { setUrl("https://maven.aliyun.com/repository/google") }
+        maven { setUrl("https://maven.aliyun.com/repository/gradle-plugin") }
+        maven { setUrl("https://maven.aliyun.com/repository/public") }
+        maven { setUrl("https://jitpack.io") }
+        maven { setUrl("https://maven.aliyun.com/nexus/content/groups/public/") }
+        maven { setUrl("https://maven.aliyun.com/nexus/content/repositories/jcenter") }
+        gradlePluginPortal()
+        google()
+        mavenCentral()
         google()
         mavenCentral()
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:8.1.+'
+        classpath "com.android.tools.build:gradle:$agp_version"
     }
 }
 
 plugins {
-    id 'com.android.library' version '8.1.+'
+    id 'com.android.library' version '8.5.1'
 }
 
+
 repositories {
+    maven { setUrl("https://maven.aliyun.com/repository/central") }
+    maven { setUrl("https://maven.aliyun.com/repository/jcenter") }
+    maven { setUrl("https://maven.aliyun.com/repository/google") }
+    maven { setUrl("https://maven.aliyun.com/repository/gradle-plugin") }
+    maven { setUrl("https://maven.aliyun.com/repository/public") }
+    maven { setUrl("https://jitpack.io") }
+    maven { setUrl("https://maven.aliyun.com/nexus/content/groups/public/") }
+    maven { setUrl("https://maven.aliyun.com/nexus/content/repositories/jcenter") }
+    gradlePluginPortal()
+    google()
+    mavenCentral()
     google()
     mavenCentral()
 }
 
 dependencies {
-    implementation 'net.java.dev.jna:jna:5.13.0@aar'
+    implementation 'net.java.dev.jna:jna:5.12.0@aar'
 }
 
 android {
-    compileSdk 33
+    namespace 'edu.ucsd.sccn'
+    compileSdkVersion 33
     defaultConfig {
         minSdkVersion 24
         externalNativeBuild.cmake {
-            arguments "-DANDROID_PLATFORM=$minSdk", "-DLSL_SLIMARCHIVE=ON"
-            cppFlags "-fexceptions","-std=c++17"
+            arguments "-DANDROID_CPP_FEATURES=rtti exceptions", "-DANDROID_PLATFORM=24"
             targets "lsl"
         }
     }
 
     sourceSets.main.java.srcDirs += 'src'
-    namespace = 'edu.ucsd.sccn'
 
     externalNativeBuild.cmake {
         // If the Android SDK CMake is older than 3.12, you need to install CMake locally and
@@ -50,8 +75,5 @@ android {
         // cmake.dir=C\:\\Program Files\\CMake
         version '3.18.1+'
         path(properties['liblsl_path'] ?: '../liblsl/CMakeLists.txt')
-    }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
     }
 }
