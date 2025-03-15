@@ -1,3 +1,10 @@
+# 如何把liblsl-java集成到自己的安卓项目中？
+1. git clone --recursive https://github.com/sccn/labstreaminglayer.git
+2. 将该项目liblsl-Java git clone下来后，放到labstreaminglayer/LSL/目录下
+3. build liblsl-java项目
+4. 从build/outputs/aar/liblsl-Java-debug.aar中拷贝liblsl-Java-debug.aar
+5. 将上述aar文件放到自己项目的目录里，修改自己项目的build.graddle，添加内容`implementation fileTree(include: ['*.aar'], dir: 'libs')`
+
 # LSL java bindings
 
 The Java interface for the lab streaming layer should run on Window/Linux/MacOS, 32/64 bit.
