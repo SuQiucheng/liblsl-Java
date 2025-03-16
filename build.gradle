@@ -58,9 +58,9 @@ dependencies {
 
 android {
     namespace 'edu.ucsd.sccn'
-    compileSdkVersion 33
+    compileSdkVersion 34
     defaultConfig {
-        minSdkVersion 24
+        minSdkVersion 21
         externalNativeBuild.cmake {
             arguments "-DANDROID_CPP_FEATURES=rtti exceptions", "-DANDROID_PLATFORM=24"
             targets "lsl"
@@ -76,4 +76,19 @@ android {
         version '3.18.1+'
         path(properties['liblsl_path'] ?: '../liblsl/CMakeLists.txt')
     }
+
+    buildTypes {
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
 }
+
